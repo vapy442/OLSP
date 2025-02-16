@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+    
+    @font-face {
+    font-family: 'BRHendrix';
+    src: url('/fonts and co/BRHendrix-SemiBold-BF6556d1b51cbb8.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* Apply the Font to "Your Points This Month" Section */
+.card-header {
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-value, .position {
+    font-family: 'BRHendrix', Arial, sans-serif;
+}
+
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Dark Main Background */
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px;
+        }
+
+        /* Top Section */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to right, #572ef3, #8d41ff);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Logout Box (Reduced to Half Width & Right-Aligned) */
+        .logout-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            width: 50%;
+            justify-content: flex-end;
+        }
+
+        .logout-box i {
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .logout-box span {
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .container-box {
+            background: white; /* White Box */
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Commissions Box (1.4x Longer) */
+        .commissions-card {
+            background: url('/images/1000987970-01.jpeg') no-repeat center;
+            background-size: cover;
+            color: white;
+            padding: 56px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+/* Gradient Text for Commissions Value */
+.commissions-value {
+    font-size: 30px;
+    font-weight: bold;
+    background: linear-gradient(to bottom, grey, white);
+    background-clip: text; /* Standard property */
+    -webkit-background-clip: text; /* WebKit (Chrome, Safari) */
+    -webkit-text-fill-color: transparent; /* Required for WebKit browsers */
+}
+
+        .commissions-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .commissions-value {
+            font-size: 30px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Cards */
+.card {
+    background: white;
+    color: #0E1853;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Style for "Your Points This Month" Section */
+.card-header {
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 23px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #CCCCCC; /* 1px section line under header */
+    padding-bottom: 10px;
+}
+
+/* Right-align the points */
+.card-content {
+    text-align: right; /* Align text to the right */
+    margin-top: 10px;  /* Add spacing under the section line */
+}
+
+/* Recent Activity Section */
+.recent-activity {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Decrease relax.svg size by 1.8x */
+.recent-activity img {
+    width: calc(100px / 0.9); /* Scales down the image */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Notifications List Message */
+.empty-message {
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 14px;
+    color: grey;
+    opacity: 0.6; /* 60% opacity */
+    text-align: center;
+}
+        /* Live Chat */
+        .live-chat {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: blue;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 0% 100%);
+        }
+        
+        .trophy-icon {
+    width: 44px; /* Adjust based on actual SVG size */
+    height: 44px;
+}
+
+/* Section Line */
+.section-line {
+    border: none;
+    height: 1px;
+    background-color: #ddd; /* Light grey */
+    margin: 5px 0; /* Spacing above and below */
+}
+
+/* Spacer for Points & Position */
+.points-content {
+    margin-top: 10px; /* Creates a 10px gap */
+}
+
+/* Overlay Image Sticking to Bottom-Right Edge */
+.overlay-image {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    max-width: 100px; /* Adjust based on preference */
+    max-height: 100px; /* Adjust based on preference */
+    z-index: 1000; /* Keeps it above other elements */
+    pointer-events: none; /* Ensures no interference with user interactions */
+}
+
+/* Help & Company Section */
+.help-company-section {
+    margin-top: 20px; /* Space from previous sections */
+    padding: 15px;
+}
+
+/* Help & Company Box */
+.help-company-box {
+    background: white;
+    color: #0E1853;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    width: 1000px; /* Same width as other sections */
+    max-width: 300px; /* Adjust based on other card sizes */
+    margin: -15px ;
+}
+
+/* Image Inside the Box (Smaller & Left-Aligned) */
+.help-image {
+    width: 100%;
+    max-width: 110px; /* Further reduced size */
+    display: block;
+    margin: 0 0 10px; /* Left-aligned with bottom spacing */
+}
+
+/* Section Titles */
+.section-title {
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #0E1853;
+}
+
+/* List Styles */
+.help-company-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.help-company-box li {
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+/* Social Icons */
+.social-icons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons a {
+    color: #0E1853;
+    font-size: 20px;
+}
+
+/* Welcome Bonus Section */
+.welcome-bonus-section {
+    margin-top: 20px;
+    padding: 15px;
+}
+
+/* Welcome Bonus Box */
+.welcome-bonus-box {
+    background: white;
+    color: #0E1853;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 1000px;
+    max-width: 300px; /* Matches other sections */
+    margin: -15px;
+}
+
+/* Title & Text */
+.bonus-title {
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.bonus-text {
+  font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+/* Claim Button */
+#claimBonusBtn {
+    background: linear-gradient(45deg, #4B0082, #1E90FF); /* Deep Purple to Blue Gradient */
+    color: white;
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    transition: opacity 0.3s ease;
+    
+}
+
+/* Hover Effect */
+#claimBonusBtn:hover {
+    opacity: 0.85;
+}
+
+/* Claimed Button Style */
+#claimBonusBtn.claimed {
+    background: #6c757d;
+    cursor: not-allowed;
+    opacity: 1;
+}
+    </style>
+</head>
+<body>
+  
+<a href="https://olspsystem.ladesk.com" id="overlayImageLink">
+    <img src="/images/Screenshot_20250215-125802-removebg-preview.png" 
+         alt="https://olspsystem.ladesk.com" 
+         class="overlay-image" 
+         id="overlayImage">
+</a>
+
+    <div class="top-bar">
+        <button class="menu-btn"><i class="fas fa-bars"></i></button>
+        <div class="logout-box">
+         <i class="fas fa-user" onclick="window.location.href='/payment modal.html'"></i>
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-sign-out-alt"></i>
+            <span onclick="window.location.href='index.html';" style="cursor: pointer; color: blue; text-decoration: underline;">Log Out</span>
+        </div>
+    </div>
+
+    <div class="container-box">
+        <div class="commissions-card">
+            <div class="commissions-balance">
+                <div class="commissions-title">Your Commissions</div>
+               <div class="commissions-value" id="balanceDisplay">$0.00</div>
+            </div>
+        </div>
+
+
+
+<script>
+  // Get balance from localStorage (default to 0 if not set)
+  function getBalance() {
+    return localStorage.getItem("balance") ? parseFloat(localStorage.getItem("balance")) : 0;
+  }
+
+  // Update balance display instantly
+  function updateBalanceDisplay() {
+    document.getElementById("balanceDisplay").textContent = `$${getBalance().toFixed(2)}`;
+  }
+
+  // Function to add amount to balance, save it, and update display
+  function updateBalance(amount) {
+    let newBalance = getBalance() + amount;
+    localStorage.setItem("balance", newBalance);
+    updateBalanceDisplay(); // Update UI instantly
+  }
+
+  // Listen for changes in localStorage to update balance in real-time
+  window.addEventListener("storage", function(event) {
+    if (event.key === "balance") {
+      updateBalanceDisplay(); // Sync balance across tabs/windows
+    }
+  });
+
+  // Set initial balance display when the page loads
+  updateBalanceDisplay();
+  
+  
+</script>
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="text">
+            Your Points This <br> Month
+        </div>
+        <img src="/images/trophy.svg" alt="Trophy" class="trophy-icon">
+    </div>
+    <div class="card-content">
+        <div class="card-value">0 Points</div>
+        <div class="position">0th</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="text">
+            Your Recent <br> Activity
+        </div>
+        <img src="/images/recent_activity.svg" alt="Recent Activity" class="trophy-icon">
+    </div>
+    
+    
+    <div class="recent-activity">
+        <img src="/images/relax.svg" alt="Relax Icon">
+        <div class="empty-message">Notifications list is empty</div>
+    </div>
+
+</div>
+ 
+ <div class="welcome-bonus-section">
+  <div class="welcome-bonus-box">
+    <h2 class="bonus-title">Welcome Bonus</h2>
+    <p class="bonus-text">Claim your $50 welcome bonus now!</p>
+  <button id="claimBonusBtn">Claim $50</button>
+<script>
+  document.getElementById("claimBonusBtn").addEventListener("click", function() {
+      location.reload();
+  });
+</script>
+  </div>
+</div>
+
+<!-- Claim 10x Bonus Section -->
+<section class="claim-bonus-section">
+  <div class="claim-bonus-box">
+    <h2 class="claim-title">Claim 10x Bonus as an Existing User</h2>
+    <button class="claim-bonus-btn" onclick="window.location.href='payment-page.html'">Claim Now</button>
+  </div>
+</section>
+
+<style>
+/* Claim Bonus Section */
+.claim-bonus-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+}
+
+/* Claim Bonus Box */
+.claim-bonus-box {
+    width: 1000px;
+    max-width: 300px;
+    margin: -15px auto;
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+.claim-title {
+    font-family: 'BRHendrix', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Claim Button (Full Width) */
+.claim-bonus-btn {
+    width: 100%;
+    font-family: 'BRHendrix', Arial, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Blue-Purple Gradient */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.claim-bonus-btn:hover {
+    opacity: 0.8;
+}
+</style>
+
+<div class="help-company-section">
+    <div class="help-company-box">
+        <img src="/images/Screenshot_20250215-131814.jpg" alt="Help & Community" class="help-image">
+        
+        <div class="section-title">HELP</div>
+        <ul>
+            <li>Suggestions</li>
+            <li>Knowledgebase</li>
+            <li>Change Log / Updates</li>
+            <li>Roadmap</li>
+            <li>Customer Support and Contact</li>
+        </ul>
+
+        <div class="section-title">COMPANY</div>
+        <ul>
+            <li>About us</li>
+            <li>Terms & Conditions</li>
+            <li>Privacy Policy</li>
+            <li>Refund/Cancellation Policy</li>
+            <li>MEET THE TEAM</li>
+        </ul>
+
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+</div>
+
+
+    <script>
+        
+        
+        document.addEventListener("DOMContentLoaded", function() {
+  const claimBtn = document.getElementById("claimBonusBtn");
+
+  // Check if bonus is already claimed
+  if (localStorage.getItem("bonusClaimed") === "true") {
+    claimBtn.innerText = "Claimed";
+    claimBtn.classList.add("claimed");
+    claimBtn.disabled = true;
+  }
+
+  // Claim Bonus
+  claimBtn.addEventListener("click", function() {
+    if (!localStorage.getItem("bonusClaimed")) {
+      let balance = parseFloat(localStorage.getItem("balance")) || 0;
+      balance += 50;
+      localStorage.setItem("balance", balance);
+      localStorage.setItem("bonusClaimed", "true");
+
+      // Update Button State
+      claimBtn.innerText = "Claimed";
+      claimBtn.classList.add("claimed");
+      claimBtn.disabled = true;
+    }
+  });
+});
+    </script>
+
+
+</body>
+</html>

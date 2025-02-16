@@ -1,0 +1,151 @@
+<!-- Modal Container -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <h2>Commission Payment Details</h2>
+
+    <!-- Payment Method Dropdown -->
+    <label for="paymentMethod">Payment Method</label>
+    <select id="paymentMethod">
+      <option value="" disabled selected>Select Payment Method</option>
+      <option value="PayPal">PayPal</option>
+      <option value="Wise">Wise</option>
+    </select>
+
+    <!-- Currency Dropdown -->
+    <label for="currency">Currency</label>
+    <select id="currency">
+      <option value="USD">USD</option>
+      <option value="GBP">GBP</option>
+    </select>
+
+    <!-- Dynamic Email Field (Hidden Initially) -->
+    <div id="emailField" style="display: none;">
+      <label id="emailLabel" for="emailInput"></label>
+      <input type="email" id="emailInput" placeholder="Enter email">
+    </div>
+
+    <!-- Save Button -->
+    <button id="saveBtn">SAVE</button>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const saveBtn = document.getElementById("saveBtn");
+    const paymentMethod = document.getElementById("paymentMethod");
+    const currency = document.getElementById("currency");
+    const emailField = document.getElementById("emailField");
+    const emailLabel = document.getElementById("emailLabel");
+    const emailInput = document.getElementById("emailInput");
+
+    // Load saved values from localStorage
+    if (localStorage.getItem("paymentMethod")) {
+        paymentMethod.value = localStorage.getItem("paymentMethod");
+        showEmailField(paymentMethod.value);
+    }
+    if (localStorage.getItem("currency")) {
+        currency.value = localStorage.getItem("currency");
+    }
+    if (localStorage.getItem("email")) {
+        emailInput.value = localStorage.getItem("email");
+        emailField.style.display = "block";
+    }
+    if (localStorage.getItem("paymentSaved")) {
+        saveBtn.innerText = "Saved";
+        saveBtn.disabled = true;
+    }
+
+    // Show email field based on selected payment method
+    paymentMethod.addEventListener("change", function() {
+        showEmailField(this.value);
+    });
+
+    function showEmailField(method) {
+        if (method === "Wise") {
+            emailLabel.textContent = "Wise Email";
+            emailInput.placeholder = "Enter Wise Email";
+            emailField.style.display = "block";
+        } else if (method === "PayPal") {
+            emailLabel.textContent = "PayPal Email";
+            emailInput.placeholder = "Enter PayPal Email";
+            emailField.style.display = "block";
+        } else {
+            emailField.style.display = "none";
+        }
+    }
+
+    // Save to localStorage and change button state
+    saveBtn.addEventListener("click", function() {
+        if (paymentMethod.value && currency.value && emailInput.value) {
+            localStorage.setItem("paymentMethod", paymentMethod.value);
+            localStorage.setItem("currency", currency.value);
+            localStorage.setItem("email", emailInput.value);
+            localStorage.setItem("paymentSaved", "true");
+
+            saveBtn.innerText = "Saved";
+            saveBtn.disabled = true;
+        }
+    });
+});
+</script>
+
+<style>
+/* Modal Background */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Box */
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Dropdowns */
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Save Button */
+#saveBtn {
+    background: linear-gradient(to right, #a6c0fe, #f68084);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    float: left;
+    border-radius: 5px;
+}
+
+/* Saved Button State */
+#saveBtn.saved {
+    background: gray;
+    cursor: not-allowed;
+}
+</style>

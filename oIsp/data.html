@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .save { background: #28a745; color: white; }
+        .reset { background: #dc3545; color: white; }
+        .increase { background: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>LocalStorage Editor</h2>
+        <p>Stored Value: <span id="storedValue">0</span></p>
+        <input type="number" id="valueInput" placeholder="Enter a value">
+        <button class="save" onclick="saveValue()">Save</button>
+        <button class="reset" onclick="resetValue()">Reset</button>
+        <button class="increase" onclick="increaseValue()">Increase</button>
+    </div>
+
+    <script>
+        const storageKey = "myValue"; // Key for localStorage
+
+        function loadValue() {
+            let value = localStorage.getItem(storageKey) || 0;
+            document.getElementById("storedValue").innerText = value;
+            document.getElementById("valueInput").value = value;
+        }
+
+        function saveValue() {
+            let newValue = document.getElementById("valueInput").value;
+            localStorage.setItem(storageKey, newValue);
+            loadValue();
+        }
+
+        function resetValue() {
+            localStorage.setItem(storageKey, 0);
+            loadValue();
+        }
+
+        function increaseValue() {
+            let increment = prompt("Enter the amount to increase:", "1");
+            if (increment !== null) {
+                let currentValue = parseFloat(localStorage.getItem(storageKey)) || 0;
+                let newValue = currentValue + parseFloat(increment);
+                localStorage.setItem(storageKey, newValue);
+                loadValue();
+            }
+        }
+
+        loadValue();
+    </script>
+
+</body>
+</html>
